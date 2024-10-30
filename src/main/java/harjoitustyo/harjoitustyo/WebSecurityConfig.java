@@ -33,15 +33,8 @@ import java.util.List;
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
-        private final UserDetailServiceImpl userDetailsService;
-        private final PasswordEncoder passwordEncoder;
-
-        // Constructor Injection
         @Autowired
-        public WebSecurityConfig(@Lazy UserDetailServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
-                this.userDetailsService = userDetailsService;
-                this.passwordEncoder = passwordEncoder;
-        }
+        private UserDetailServiceImpl userDetailsService;
 
         private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
                         new AntPathRequestMatcher("/api/players**"),
@@ -66,22 +59,9 @@ public class WebSecurityConfig {
                 return http.build();
         }
 
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
-
-        @Bean
-        public DaoAuthenticationProvider authenticationProvider() {
-                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-                authProvider.setUserDetailsService(userDetailsService);
-                authProvider.setPasswordEncoder(passwordEncoder);
-                return authProvider;
-        }
-
-        /*@Autowired
+        @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-                auth.authenticationProvider(authenticationProvider());
-        }*/
+                auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        }
 
 }
