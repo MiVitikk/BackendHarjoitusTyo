@@ -54,8 +54,8 @@ CREATE TABLE appuser
 , role VARCHAR(100) NOT NULL);
 
 INSERT INTO appuser (username, password_hash, role)
-VALUES ('user', '$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6', 'USER'),
-        ('admin', '$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C', 'ADMIN');
+VALUES ('user', '$2a$10$nSk0il7rMXBdww6nk4bGguWwGw0xor1n/hbyShVZd9d9jXhwhpXgy', 'USER'),
+        ('admin', '$2a$10$adBcOrQythSTjcfnkcPi5unFp9uWx7P6vifbL6zWz197lFfPgWN.y', 'ADMIN');
 
 SELECT * FROM teammember;
 SELECT * FROM team;
