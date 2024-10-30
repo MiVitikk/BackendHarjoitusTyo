@@ -1,6 +1,8 @@
 package harjoitustyo.harjoitustyo;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -36,7 +38,7 @@ public class WebSecurityConfig {
     
         // Constructor Injection
         @Autowired
-        public WebSecurityConfig(UserDetailServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
+        public WebSecurityConfig(@Lazy UserDetailServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
             this.userDetailsService = userDetailsService;
             this.passwordEncoder = passwordEncoder;
         }

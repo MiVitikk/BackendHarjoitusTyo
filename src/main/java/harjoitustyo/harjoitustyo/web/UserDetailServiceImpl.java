@@ -14,8 +14,7 @@ import harjoitustyo.harjoitustyo.domain.AppUserRepository;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    AppUserRepository userRepository;
-
+    private AppUserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,13 +22,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (curruser == null) {
             throw new UsernameNotFoundException("User not found: " + username);
         }
-
-        
         return new org.springframework.security.core.userdetails.User(
-            curruser.getUsername(),
-            curruser.getPasswordHash(),
-            AuthorityUtils.createAuthorityList(curruser.getRole())
-        );
+                curruser.getUsername(),
+                curruser.getPasswordHash(),
+                AuthorityUtils.createAuthorityList(curruser.getRole()));
     }
-
 }
