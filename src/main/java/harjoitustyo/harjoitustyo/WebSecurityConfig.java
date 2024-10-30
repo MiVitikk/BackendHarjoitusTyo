@@ -60,28 +60,12 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-
-        List<UserDetails> users = new ArrayList<UserDetails>();
-
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-        UserDetails user1 = User.withUsername("user").password(passwordEncoder.encode("user")).roles("USER")
-                .build();
-
-        users.add(user1);
-
-        UserDetails user2 = User.withUsername("admin").password(passwordEncoder.encode("admin")).roles("ADMIN")
-                .build();
-
-        users.add(user2);
-
-        return new InMemoryUserDetailsManager(users);
-    }
+    
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
+
+    
 }
