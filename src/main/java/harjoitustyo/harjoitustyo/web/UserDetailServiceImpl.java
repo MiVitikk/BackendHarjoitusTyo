@@ -13,8 +13,12 @@ import harjoitustyo.harjoitustyo.domain.AppUserRepository;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
+    private final AppUserRepository userRepository;
+
     @Autowired
-    private AppUserRepository userRepository;
+    public UserDetailServiceImpl(AppUserRepository userRepository) {
+        this.userRepository = userRepository;
+    };
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

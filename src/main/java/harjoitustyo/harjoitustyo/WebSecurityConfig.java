@@ -35,49 +35,53 @@ public class WebSecurityConfig {
 
         private final UserDetailServiceImpl userDetailsService;
         private final PasswordEncoder passwordEncoder;
-    
+
         // Constructor Injection
         @Autowired
         public WebSecurityConfig(@Lazy UserDetailServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
-            this.userDetailsService = userDetailsService;
-            this.passwordEncoder = passwordEncoder;
-        }
-    
-        private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
-                new AntPathRequestMatcher("/api/players**"),
-                new AntPathRequestMatcher("/h2-console/**"),
-                new AntPathRequestMatcher("/api/**") 
-        };
-    
-        @Bean
-        public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-            http
-                    .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers(antMatcher("/css/**")).permitAll()
-                            .requestMatchers(WHITE_LIST_URLS).permitAll()
-                            .anyRequest().authenticated())
-                    .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
-                    .formLogin(formlogin -> formlogin
-                            .loginPage("/login")
-                            .defaultSuccessUrl("/index", true)
-                            .permitAll())
-                    .logout(logout -> logout.permitAll())
-                    .csrf(csrf -> csrf.disable());
-            return http.build();
-        }
-    
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
-        }
-    
-        @Bean
-        public DaoAuthenticationProvider authenticationProvider() {
-            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-            authProvider.setUserDetailsService(userDetailsService);
-            authProvider.setPasswordEncoder(passwordEncoder);
-            return authProvider;
+                this.userDetailsService = userDetailsService;
+                this.passwordEncoder = passwordEncoder;
         }
 
-    
+        private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
+                        new AntPathRequestMatcher("/api/players**"),
+                        new AntPathRequestMatcher("/h2-console/**"),
+                        new AntPathRequestMatcher("/api/**")
+        };
+
+        @Bean
+        public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests(authorize -> authorize
+                                                .requestMatchers(antMatcher("/css/**")).permitAll()
+                                                .requestMatchers(WHITE_LIST_URLS).permitAll()
+                                                .anyRequest().authenticated())
+                                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
+                                .formLogin(formlogin -> formlogin
+                                                .loginPage("/login")
+                                                .defaultSuccessUrl("/index", true)
+                                                .permitAll())
+                                .logout(logout -> logout.permitAll())
+                                .csrf(csrf -> csrf.disable());
+                return http.build();
+        }
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public DaoAuthenticationProvider authenticationProvider() {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder);
+                return authProvider;
+        }
+
+        /*@Autowired
+        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+                auth.authenticationProvider(authenticationProvider());
+        }*/
+
 }
