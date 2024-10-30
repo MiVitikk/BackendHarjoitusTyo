@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Edit</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <h1>Muokkaa kenttäpelaaja</h1>
+    <div>
+        <form th:object="${editPlayer}" th:action="@{/savePlayer}" action='#' method="post">
+            <input type="text" id="memberid" th:field="*{memberid}" readonly />
+            <div>
+                <label>Etunimi</label>
+                <input type="text" th:field="*{firstName}"/>
+            </div>
+            <div>
+                <label>Sukunimi</label>
+                <input type="text" th:field="*{lastName}"/>
+            </div>
+            <div>
+                <label>Pelinumero</label>
+                <input type="text" th:field="*{jerseyNumber}"/>
+            </div>
+            <div>
+                <label>Maalit</label>
+                <input type="text" th:field="*{goals}"/>
+            </div>
+            <div>
+                <label>Syötöt</label>
+                <input type="text" th:field="*{assists}"/>
+            </div>
+            <div>
+                <label>Pisteet</label>
+                <input type="text" th:field="*{points}" th:text="${points}"/>
+            </div>
+            
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <label for="teamlist">Team</label>
+            <select id="teamlist" th:field="*{team}" class="form-control">
+                <option th:each="team: ${teams}"
+                        th:value="${team.teamId}"
+                        th:text="${team.teamName}">
+                </option>
+            </select>
+
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="submit" value="Tallenna" class="btn btn-xs btn-danger"></input>
+            <p><a href="/teamMemberList" class="btn btn-xs btn-danger">Takaisin</a></p>
+
+
+        </form>
+    </div>
+</body>

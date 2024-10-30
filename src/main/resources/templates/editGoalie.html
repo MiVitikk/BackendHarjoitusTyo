@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Edit</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <h1>Muokkaa maalivahtia</h1>
+    <div>
+        <form th:object="${editGoalie}" th:action="@{/saveGoalie}" action='#' method="post">
+            <input type="text" id="memberid" th:field="*{memberid}" readonly />
+            <div>
+                <label>Etunimi</label>
+                <input type="text" th:field="*{firstName}"/>
+            </div>
+            <div>
+                <label>Sukunimi</label>
+                <input type="text" th:field="*{lastName}"/>
+            </div>
+            <div>
+                <label>Pelinumero</label>
+                <input type="text" th:field="*{jerseyNumber}"/>
+            </div>
+
+            <div>
+                <label>Torjunnat</label> <input type="text" th:field="*{saves}" />
+                
+            </div>
+
+            <div>
+                <label>Torjuntaprosentti</label> <input type="text" th:field="*{savePrc}" />
+                
+            </div>
+            <div>
+                <label>Voitot</label> <input type="text" th:field="*{wins}" />
+                
+            </div>
+
+            <div>
+                <label>Tappiot</label> <input type="text" th:field="*{losses}" />
+                
+            </div>
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <label for="teamlist">Team</label>
+            <select id="teamlist" th:field="*{team}" class="form-control">
+                <option th:each="team: ${teams}"
+                        th:value="${team.teamId}"
+                        th:text="${team.teamName}">
+                </option>
+            </select>
+
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <input type="submit" value="Tallenna" class="btn btn-xs btn-danger"></input>
+            <p><a href="/teamMemberList" class="btn btn-xs btn-danger">Takaisin</a></p>
+
+
+        </form>
+    </div>
+</body>

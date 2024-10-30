@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+
+<head>
+    <title>Joukkueet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<h1>Joukkueet</h1>
+
+<table>
+    <table class ="table table-striped">
+        <tr>
+            <th>Joukkueen nimi</th>
+            <th>Voitot</th>
+            <th>Häviöt</th>
+        </tr>
+        <tr th:each="team : ${teams}">
+            <td th:text="${team.teamName}"></td>
+            <td th:text="${team.teamWins}"></td>
+            <td th:text="${team.teamLosses}"></td>
+            <td > <a th:href="@{/teamMembersByTeam/{id}(id=${team.teamId})}"
+                class="btn btn-xs btn-danger"> Näytä pelaajat</a> </td>
+
+        </tr>
+</table>
+<p><a href="/index" class="btn btn-xs btn-danger">Etusivulle</a></p>
+</body>
+
+</html>

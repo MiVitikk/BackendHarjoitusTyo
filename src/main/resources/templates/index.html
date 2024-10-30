@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Etusivu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<div class="col-md-4">
+    <span sec:authentication="name">Name</span>
+
+</div>
+
+<div class="col-md-4" style="padding:20px 0">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+    </form>
+</div>
+<body>
+    <div>Hello and welcome</div>
+    <p><a href="/teamMemberList" class="btn btn-xs btn-danger">Näytä Kaikki Pelaajat</a></p>
+    <p><a href="/teamList" class="btn btn-xs btn-danger">Näytä Kaikki Joukkueet</a></p>
+
+</body>

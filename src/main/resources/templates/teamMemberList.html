@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+
+<head>
+    <title>Kaikki Pelaajat</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<h1>Kaikki Pelaajat</h1>
+
+<div class="col-md-4">
+    <span sec:authentication="name">Name</span>
+
+</div>
+
+<div class="col-md-4" style="padding:20px 0">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+    </form>
+</div>
+
+<table>
+    <table class="table table-striped">
+        <h2>Kenttäpelaajat</h2>
+        <tr>
+
+            <th>Etunimi</th>
+            <th>Sukunimi</th>
+            <th>Pelinumero</th>
+            <th>Maalit</th>
+            <th>Syötöt</th>
+            <th>Pisteet</th>
+            <th>Joukkue</th>
+            <th sec:authorize="hasAuthority('ADMIN')"></th>
+        </tr>
+        <tr th:each="player : ${players}">
+
+            <td th:text="${player.firstName}"></td>
+            <td th:text="${player.lastName}"></td>
+            <td th:text="${player.jerseyNumber}"></td>
+            <td th:text="${player.goals}"></td>
+            <td th:text="${player.assists}"></td>
+            <td th:text="${player.points}"></td>
+            <td th:text="${player.team.teamName}"></td>
+
+            <td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{editPlayer/{id}(id=${player.memberid})}"
+                    class="btn btn-xs btn-danger"> Muokkaa</a> </td>
+
+            <td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{delete/{id}(id=${player.memberid})}"
+                    class="btn btn-xs btn-danger">Poista</a></td>
+
+        </tr>
+
+    </table>
+    <table>
+        <table class="table table-striped">
+            <h2>Maalivahdit</h2>
+            <tr>
+
+                <th>Etunimi</th>
+                <th>Sukunimi</th>
+                <th>Pelinumero</th>
+                <th>Torjuntaprosentti</th>
+                <th>Torjunnat</th>
+                <th>Voitot</th>
+                <th>Häviöt</th>
+                <th>Joukkue</th>
+                <th sec:authorize="hasAuthority('ADMIN')"></th>
+            </tr>
+            <tr th:each="goalie : ${goalies}">
+
+                <td th:text="${goalie.firstName}"></td>
+                <td th:text="${goalie.lastName}"></td>
+                <td th:text="${goalie.jerseyNumber}"></td>
+                <td th:text="(${goalie.savePrc}) + |&#37|"></td>
+                <td th:text="${goalie.saves}"></td>
+                <td th:text="${goalie.wins}"></td>
+                <td th:text="${goalie.losses}"></td>
+                <td th:text="${goalie.team.teamName}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{editGoalie/{id}(id=${goalie.memberid})}"
+                        class="btn btn-xs btn-danger"> Muokkaa</a> </td>
+                <td sec:authorize="hasAuthority('ADMIN')"> <a th:href="@{delete/{id}(id=${goalie.memberid})}"
+                        class="btn btn-xs btn-danger">Poista</a></td>
+
+            </tr>
+        </table>
+
+        <p><a sec:authorize="hasAuthority('ADMIN')" href="/newPlayer" class="btn btn-xs btn-danger">Lisää
+                kenttäpelaaja</a></p>
+        <p><a sec:authorize="hasAuthority('ADMIN')" href="/newGoalie" class="btn btn-xs btn-danger">Lisää maalivahti</a>
+        </p>
+        <p><a href="/index" class="btn btn-xs btn-danger">Etusivulle</a></p>
+
+
+
+        </body>
+
+</html>

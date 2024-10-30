@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>[[${team.teamName}]]</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+<h1>[[${team.teamName}]]</h1>
+
+<table class="table table-striped">
+    <h2>Kenttäpelaajat</h2>
+    <tr>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Pelinumero</th>
+    </tr>
+    <tr th:each="player : ${players}">
+        <td th:text="${player.firstName}"></td>
+        <td th:text="${player.lastName}"></td>
+        <td th:text="${player.jerseyNumber}"></td>
+    </tr>
+</table>
+
+<table class="table table-striped">
+    <h2>Maalivahdit</h2>
+    <tr>
+        <th>Etunimi</th>
+        <th>Sukunimi</th>
+        <th>Pelinumero</th>
+    </tr>
+    <tr th:each="goalie : ${goalies}">
+        <td th:text="${goalie.firstName}"></td>
+        <td th:text="${goalie.lastName}"></td>
+        <td th:text="${goalie.jerseyNumber}"></td>
+    </tr>
+</table>
+<p><a href="/teamList" class="btn btn-xs btn-danger">Takaisin</a></p>
+<p><a href="/index" class="btn btn-xs btn-danger">Etusivulle</a></p>
+
+</body>
+</html>
